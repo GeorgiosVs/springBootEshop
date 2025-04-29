@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Transactional
+
 @Repository
+@Transactional
 public class CitiesRepository {
     @PersistenceContext
     private EntityManager entityMgr;
