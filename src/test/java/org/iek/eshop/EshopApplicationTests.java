@@ -17,8 +17,6 @@ class EshopApplicationTests {
     private CitiesRepository CitiesRepository;
 
     @Autowired
-    private CitiesCrudRepository CitiesCrudRepository;
-    @Autowired
     private CitiesCrudRepository citiesCrudRepository;
 
     @Test
