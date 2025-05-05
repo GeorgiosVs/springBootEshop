@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Transactional
 public interface CitiesCrudRepository extends CrudRepository<City, Integer> {
-    City findById(int id);
 }

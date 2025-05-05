@@ -6,5 +6,4 @@ public class ProductDto {
     public String description;
     public double price;
     public int categoryId;
-    public ProductCategoryDto category;
 }
