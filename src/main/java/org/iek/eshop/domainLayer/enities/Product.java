@@ -1,16 +1,20 @@
 package org.iek.eshop.domainLayer.enities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 
-@Entity(name = "products")
+@Entity
+@Table(name = "products")
 public class Product {
     @Id
-    public int id;
-    public String title;
-    public String description;
-    public double price;
-    public int categoryId;
+    private long id;
+    private String title;
+    private String description;
+    private double price;
+
+    //@Column(name = "categoryId")
+    //private long categoryId;
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private ProductCategory category;
+
 }
