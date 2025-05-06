@@ -13,15 +13,30 @@ import java.util.stream.Collectors;
 
 @Repository
 @Transactional
-public class CitiesRepository {
+public class CityRepository {
     @PersistenceContext
     private EntityManager entityMgr;
 
     public List<City> get(){
         List<City> result = entityMgr
-                .createQuery("SELECT c FROM cities c", City.class)
+                .createQuery("SELECT c FROM City c", City.class)
                 .getResultStream()
                 .collect(Collectors.toList());
         return new ArrayList<City>(result);
+    }
+
+    public int create(City city){
+        entityMgr.persist(city);
+        entityMgr.flush();
+        return city.id;
+    }
+
+    public void update(City city){
+        entityMgr.merge(city);
+        entityMgr.flush();
+    }
+
+    public City findById(int id){
+        return entityMgr.find(City.class, id);
     }
 }
