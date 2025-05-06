@@ -29,9 +29,9 @@ public class CityService
                 .collect(Collectors.toList());
         if (validationViolationMessages.size() > 0)
             throw new Exception(String.join("\n", validationViolationMessages));
-        int id = cityRepository
-                .create(new City() {{ name = c.name; }});
-        return id;
+        City city = new City();
+        city.name = c.name;
+        return cityRepository.create(city);
     }
     public CityDto updateCity(CityDto c) throws Exception
     {
