@@ -36,7 +36,7 @@ public class CityRepository {
         entityMgr.flush();
     }
 
-    public City findById(int id){
+    public City getById(int id){
         return entityMgr.find(City.class, id);
     }
 }

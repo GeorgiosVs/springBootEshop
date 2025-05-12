@@ -2,6 +2,8 @@ package org.iek.eshop;
 
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
+import org.iek.eshop.businessLogicLayer.dtos.CityDto;
+import org.iek.eshop.businessLogicLayer.services.CityService;
 import org.iek.eshop.domainLayer.enities.City;
 import org.iek.eshop.domainLayer.enities.Product;
 import org.iek.eshop.domainLayer.repositories.CitiesCrudRepository;
@@ -24,6 +26,9 @@ class EshopApplicationTests {
     @Autowired
     private ProductsCrudRepository productsCrudRepository;
 
+    @Autowired
+    private CityService cityService;
+
     @Test
     void testCitiesRepo(){
     List<City> cities = CityRepository.get();
@@ -45,6 +50,19 @@ class EshopApplicationTests {
                 .newArrayList(productsCrudRepository.findAll());
         Assertions.assertThat(products.size()).isNotNegative();
         Assertions.assertThat(products.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testCityService(){
+        Throwable t = null;
+        try {
+            CityDto dto = new CityDto();
+            cityService.createCity(dto);
+        }
+        catch (Throwable x){
+            t = x;
+        }
+        Assertions.assertThat(t).isNotNull();
     }
 
 }

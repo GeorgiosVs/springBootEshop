@@ -20,6 +20,26 @@ public class CityService
     @Autowired
     private Validator validator;
 
+    public List<CityDto> getCities() throws Exception{
+        return cityRepository
+                .get()
+                .stream()
+                .map(c -> new CityDto(){
+                    {
+                        id = c.id;
+                        name = c.name;
+                    }})
+                .collect(Collectors.toList());
+
+    }
+
+    public CityDto createCityById(int id) throws Exception{
+        City c = cityRepository.getById(id);
+        return new CityDto(){{
+            id = c.id;
+            name = c.name;
+        }};
+    }
     public int createCity(CityDto c) throws Exception
     {
         List<String> validationViolationMessages = validator
@@ -33,6 +53,7 @@ public class CityService
         city.name = c.name;
         return cityRepository.create(city);
     }
+
     public CityDto updateCity(CityDto c) throws Exception
     {
         List<String> validationViolationMessages = validator.validate(c).stream().map(v -> v.getMessage()).collect(Collectors.toList());
