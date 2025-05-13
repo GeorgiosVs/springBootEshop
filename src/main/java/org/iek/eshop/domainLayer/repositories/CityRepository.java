@@ -39,4 +39,8 @@ public class CityRepository {
     public City getById(int id){
         return entityMgr.find(City.class, id);
     }
+    public void delete(City city){
+        entityMgr.remove(city);
+        entityMgr.flush();
+    }
 }

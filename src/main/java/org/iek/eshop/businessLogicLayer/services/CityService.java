@@ -54,7 +54,7 @@ public class CityService
         return cityRepository.create(city);
     }
 
-    public CityDto updateCity(CityDto c) throws Exception
+    public CityDto updateCity(Integer cityId, CityDto c) throws Exception
     {
         List<String> validationViolationMessages = validator.validate(c).stream().map(v -> v.getMessage()).collect(Collectors.toList());
         if (validationViolationMessages.size() > 0)
@@ -62,5 +62,14 @@ public class CityService
         cityRepository
                 .update(new City() {{ id = c.id; name = c.name; }});
         return c;
+    }
+
+    public CityDto deleteCity(Integer cityId) throws Exception{
+        City city = cityRepository.getById(cityId);
+        cityRepository.delete(city);
+        return new CityDto(){{
+            id = city.id;
+            name = city.name;
+        }};
     }
 }
