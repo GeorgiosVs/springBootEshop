@@ -57,6 +57,7 @@ class EshopApplicationTests {
         Throwable t = null;
         try {
             CityDto dto = new CityDto();
+            // Name is required but not set, so validation should fail
             cityService.createCity(dto);
         }
         catch (Throwable x){

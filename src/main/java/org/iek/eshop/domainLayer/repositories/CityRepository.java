@@ -2,45 +2,71 @@ package org.iek.eshop.domainLayer.repositories;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.iek.eshop.domainLayer.enities.City;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-
+/**
+ * Repository for managing City entities
+ */
 @Repository
 @Transactional
 public class CityRepository {
     @PersistenceContext
-    private EntityManager entityMgr;
+    private EntityManager entityManager;
 
-    public List<City> get(){
-        List<City> result = entityMgr
-                .createQuery("SELECT c FROM City c", City.class)
-                .getResultStream()
-                .collect(Collectors.toList());
-        return new ArrayList<City>(result);
+    /**
+     * Retrieves all cities from the database
+     * 
+     * @return List of all cities
+     */
+    public List<City> get() {
+        TypedQuery<City> query = entityManager.createQuery("SELECT c FROM City c", City.class);
+        return query.getResultList();
     }
 
-    public int create(City city){
-        entityMgr.persist(city);
-        entityMgr.flush();
-        return city.id;
+    /**
+     * Creates a new city in the database
+     * 
+     * @param city the city to create
+     * @return the ID of the created city
+     */
+    public int create(City city) {
+        entityManager.persist(city);
+        entityManager.flush();
+        return city.getId();
     }
 
-    public void update(City city){
-        entityMgr.merge(city);
-        entityMgr.flush();
+    /**
+     * Updates an existing city in the database
+     * 
+     * @param city the city with updated values
+     */
+    public void update(City city) {
+        entityManager.merge(city);
+        entityManager.flush();
     }
 
-    public City getById(int id){
-        return entityMgr.find(City.class, id);
+    /**
+     * Retrieves a city by its ID
+     * 
+     * @param id the ID of the city to retrieve
+     * @return the city with the specified ID or null if not found
+     */
+    public City getById(int id) {
+        return entityManager.find(City.class, id);
     }
-    public void delete(City city){
-        entityMgr.remove(city);
-        entityMgr.flush();
+
+    /**
+     * Deletes a city from the database
+     * 
+     * @param city the city to delete
+     */
+    public void delete(City city) {
+        entityManager.remove(city);
+        entityManager.flush();
     }
 }
